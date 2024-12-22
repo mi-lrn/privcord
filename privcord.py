@@ -97,7 +97,7 @@ def delmsgs(subdirs, path):
     print("4. Make the Description Look Something Like This: https://github.com/victornpb/undiscord/discussions/429#discussioncomment-10312129")
     print("5. Select \'Delete your personal data on Discord\' under \'What do you need assistance with?\'")
     print("6. Check the Box Asking if You Read the Articles")
-    print("7. Upload the messages.csv File That This Script Generated")
+    print("7. Upload the messages.csv File That This Tool Generated")
     print("8. Press Submit")
     print("9. Wait")
     print("10. If Discord Does Not Take Action --> Check This Video: https://youtu.be/g5FbRfwMEuo?t=691")
@@ -181,26 +181,26 @@ def findPII(count, subdir, path):
                 output = False
                 if bool(address_pattern_4_1.search(checkcontent)) or bool(address_pattern_3_1.search(checkcontent)):
                     count += 1
-                    print(f'Message {count}: {content} \n Sent At: {str(message["Timestamp"])} \n Sent In: {name} \n Address Match: Strong \n')
+                    print(f'Message {count}: \n Content: {content} \n Sent At: {str(message["Timestamp"])} \n Sent In: {name} \n Address Match: Strong \n')
                     output = True
                 elif bool(address_pattern_4_2.search(checkcontent)) or bool(address_pattern_3_2.search(checkcontent)):
                     count += 1
-                    print(f'Message {count}: {content} \n Sent At: {str(message["Timestamp"])} \n Sent In: {name} \n Address Match: Partial \n')
+                    print(f'Message {count}: \n Content: {content} \n Sent At: {str(message["Timestamp"])} \n Sent In: {name} \n Address Match: Partial \n')
                     output = True
                 elif bool(address_pattern_4_3.search(checkcontent)) or bool(address_pattern_3_3.search(checkcontent)):
                     count += 1
-                    print(f'Message {count}: {checkcontent} \n Sent At: {str(message["Timestamp"])} \n Sent In: {name} \n Address Match: Weak \n')
+                    print(f'Message {count}: \n Content: {checkcontent} \n Sent At: {str(message["Timestamp"])} \n Sent In: {name} \n Address Match: Weak \n')
                     output = True
                 if bool(phone_pattern.search(checkcontent)):
                     if output == False:
                         count += 1
-                        print(f'Message {count}: {content} \n Sent At: {str(message["Timestamp"])} \n Sent In: {name} \n Phone Number Match: Strong \n')
+                        print(f'Message {count}: \n Content: {content} \n Sent At: {str(message["Timestamp"])} \n Sent In: {name} \n Phone Number Match: Strong \n')
                     else:
                         print("Phone Number Match: Strong \n")
                 if bool(email_pattern.search(checkcontent)):
                     count += 1
                     if output == False:
-                        print(f'Message {count}: {content} \n Sent At: {str(message["Timestamp"])} \n Sent In: {name} \n Email Match: Strong \n')
+                        print(f'Message {count}: \n Content: {content} \n Sent At: {str(message["Timestamp"])} \n Sent In: {name} \n Email Match: Strong \n')
                     else:
                         print("Email Match: Strong \n")
         os.chdir("..")
@@ -240,7 +240,7 @@ def findMsgContent(searchterms, count, subdir, path):
                         display = False
                 if display == True:
                     count += 1
-                    print(f'Message {count}: {content} \n Sent At: {str(message["Timestamp"])} \n Sent In: {name} \n')
+                    print(f'Message {count}: \n Content: {content} \n Sent At: {str(message["Timestamp"])} \n Sent In: {name} \n')
         os.chdir("..")
         return count
     except:
@@ -317,8 +317,10 @@ def main():
     print("")
     print("------------------------------------------------------------------------------------------------")
     print("")
-    print("Enter Messages Path: ")
+    print("Enter Messages Path (Or Press Enter to Exit): ")
     path = input("")
+    if path == "":
+        quit()
     if "\"" in path:
         path = path.replace("\"", "")
     path = r"{}".format(path)
@@ -351,6 +353,9 @@ def menu(subdirs, path):
     elif option == "3":
         delmsgs(subdirs, path)
     elif option == "4":
+        quit()
+    else:
+        print("Invalid Option --> Make Sure You\'re Using the Associated Numbers (Ex Input: 1)")
         quit()
 
 #runs the tool
